@@ -1,0 +1,47 @@
+<table class="table table-striped">
+    <thead>
+        <th>CLIENTE</th>
+        <th>NUMERO DE OS</th>
+        <th>EQUIPAMENTOS</th>
+        <th>STATUS</th>
+        <th>EDITAR</th>
+        <th>REMOVER</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of servicoList$|async">
+            <td>{{item.cliente.nome}}</td>
+            <td>{{item.numeroOs}}</td>
+            <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Exibir
+              </button><div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Equipamentos da OS {{item.servicoId}}</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" *ngFor="let eqp of item.equipamentos">
+                        <div [ngClass]="verificarEquipamentosOs(eqp.servicoId,item.numeroOs)">
+                          <ul>
+                            <li>N EQUIPAMENTO: {{eqp.equipamentoId}}</li>
+                            <ul>
+                                <li>NOME: {{eqp.nome}}</li>
+                                <li>MODELO: {{eqp.modelo}}</li>
+                                <li>MARCA: {{eqp.marca}}</li>
+                                <li>NUMERO DE SERIE: {{eqp.numSerie}}</li>
+                                <li>Garantia: {{garantia(eqp.garantia)}}</li>
+                            </ul>
+                        </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                  </div>
+                </div>
+              </div></td>
+            <td>{{status(item.status)}}</td>
+            <td ><img src="../../../assets/img/editar-icone.png" alt=""></td>
+            <td><img src="../../../assets/img/remover-icone.png" alt=""></td>
+    </tbody>
+</table>
