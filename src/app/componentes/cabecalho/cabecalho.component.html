@@ -1,6 +1,15 @@
 <header class="d-flex justify-content-around align-items-center text-bg-light p-3">
     <img src="../../../assets/img/Logo.png" alt="Logo">
-    <h1>ELETROMULTI
+    <h1>
+        ELETROMULTI
     </h1>
-    <button class="btn btn-primary" routerLink="/servicos">SERVICOS</button>
+    <div class="btn-group">
+        <button type="button" class="btn btn-danger dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">Menu</button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" routerLink="/clientes">Clientes</a></li>
+          <li><a class="dropdown-item" routerLink="/servicos">Serviços</a></li>
+          <li><a class="dropdown-item" routerLink="/financeiro">Financeiro</a></li>
+          <li><a class="dropdown-item" routerLink="">Home</a></li>
+        </ul>
+      </div>
 </header>

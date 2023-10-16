@@ -1,47 +1,96 @@
-<table class="table table-striped">
-    <thead>
-        <th>CLIENTE</th>
+<div class="espaco">
+  <div class="d-flex  flex-row-reverse espacoBtns">
+    <button type="button" class="btn btn-outline-dark text-white" routerLink="/servicos/cadastrar">Cadastrar Serviço</button>
+</div>
+  <table class="table table-hover table-dark">
+    <thead class="letras">
         <th>NUMERO DE OS</th>
         <th>EQUIPAMENTOS</th>
         <th>STATUS</th>
-        <th>EDITAR</th>
-        <th>REMOVER</th>
+        <th>CLIENTE</th>
+        <th>AÇÕES</th>
     </thead>
     <tbody>
         <tr *ngFor="let item of servicoList$|async">
-            <td>{{item.cliente.nome}}</td>
-            <td>{{item.numeroOs}}</td>
-            <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Exibir
-              </button><div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">Equipamentos da OS {{item.servicoId}}</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" *ngFor="let eqp of item.equipamentos">
-                        <div [ngClass]="verificarEquipamentosOs(eqp.servicoId,item.numeroOs)">
-                          <ul>
-                            <li>N EQUIPAMENTO: {{eqp.equipamentoId}}</li>
+            <td>{{item.servicoId}}</td>
+            <td>
+                <button type="button" class="btn btn-primary me-2 mb-1" data-bs-toggle="modal" data-bs-target="#exampleModal"  (click)="retornarEquipamentos(item.servicoId)">
+                  Exibir
+                </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Equipamentos da OS {{item.servicoId}}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body text-dark" *ngFor="let eqp of equipamentoList$|async">
                             <ul>
-                                <li>NOME: {{eqp.nome}}</li>
-                                <li>MODELO: {{eqp.modelo}}</li>
-                                <li>MARCA: {{eqp.marca}}</li>
-                                <li>NUMERO DE SERIE: {{eqp.numSerie}}</li>
-                                <li>Garantia: {{garantia(eqp.garantia)}}</li>
+                              <li>N EQUIPAMENTO: {{eqp.equipamentoId}}</li>
+                              <ul>
+                                  <li>NOME: {{eqp.nome}}</li>
+                                  <li>MODELO: {{eqp.modelo}}</li>
+                                  <li>MARCA: {{eqp.marca}}</li>
+                                  <li>NUMERO DE SERIE: {{eqp.numSerie}}</li>
+                                  <li>Garantia: {{garantiaS(eqp.garantia)}}</li>
+                              </ul>
                             </ul>
-                        </ul>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                      </div>
+                      <div class="addEqp text-dark espaco">
+                        <form class="bg-light espaco">
+                          <div class="col-sm-10">
+                            <label for="servicoId" class="form-label">NumeroOs</label>
+                            <input type="text" id="servicoId" name="servicoId" class="form-control" [(ngModel)]="servicoId" [placeholder]="item.servicoId">
+                          </div>
+                          <div class="col-sm-10">
+                            <label for="equipamentoNome" class="form-label">Nome Do Equipamento</label>
+                            <input type="text" id="equipamentoNome" name="equipamentoNome" class="form-control" [(ngModel)]="nome">
+                          </div>
+                          <div class="col-sm-10">
+                            <label for="modeloNome" class="form-label">Modelo</label>
+                            <input type="text" id="modeloNome" name="modeloNome" class="form-control" [(ngModel)]="modelo">
+                          </div>
+                          <div class="col-sm-10">
+                            <label for="marcaNome" class="form-label">Marca</label>
+                            <input type="text" id="marcaNome" name="marcaNome" class="form-control" [(ngModel)]="marca">
+                          </div>
+                          <div class="col-sm-10">
+                            <label for="numeroDeSerie" class="form-label">Número De Série</label>
+                            <input type="text" id="numeroDeSerie" name="numeroDeSerie" class="form-control" [(ngModel)]="numSerie">
+                          </div>
+                          <div class="col-sm-10">
+                            <label for="garantia" class="form-label">Garantia</label>
+                            <select name="garantia" id="garantia" class="form-control" [(ngModel)]="garantia">
+                              <option value="true">
+                                Com Garantia
+                              </option>
+                              <option value="false">
+                                Sem Garantia
+                              </option>
+                            </select>
+                          </div>
+                          <div class="form-group row">
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer d-flex justify-content-around align-items-center">
+                          <button type="button" class="btn btn-primary" (click)="addEquipamentos()">Adicionar Equipamento</button>
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div></td>
+              </div>
+            </td>
             <td>{{status(item.status)}}</td>
-            <td ><img src="../../../assets/img/editar-icone.png" alt=""></td>
-            <td><img src="../../../assets/img/remover-icone.png" alt=""></td>
+            <td>{{item.cliente.nome}}</td>
+            <td>
+              <button class="btn btn-outline-primary me-2 mb-1" routerLink="/servicos/editar">
+                Editar
+              </button>
+              <button class="btn btn-outline-danger me-2 mb-1" (click)="excluirServico(item.servicoId)">
+                Excluir
+              </button>
+            </td>
     </tbody>
 </table>
+</div>

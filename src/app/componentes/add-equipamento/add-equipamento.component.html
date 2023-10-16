@@ -1,0 +1,36 @@
+<div class="espaco">
+    <form class="bg-light">
+        <div class="col-sm-10">
+            <label for="equipamentoNome" class="form-label">Nome Do Equipamento</label>
+            <input type="text" id="equipamentoNome" name="equipamentoNome" class="form-control" [(ngModel)]="nome">
+          </div>
+          <div class="col-sm-10">
+            <label for="modeloNome" class="form-label">Modelo</label>
+            <input type="text" id="modeloNome" name="modeloNome" class="form-control" [(ngModel)]="modelo">
+          </div>
+          <div class="col-sm-10">
+            <label for="marcaNome" class="form-label">Marca</label>
+            <input type="text" id="marcaNome" name="marcaNome" class="form-control" [(ngModel)]="marca">
+          </div>
+          <div class="col-sm-10">
+            <label for="numeroDeSerie" class="form-label">Número De Série</label>
+            <input type="text" id="numeroDeSerie" name="numeroDeSerie" class="form-control" [(ngModel)]="numSerie">
+          </div>
+          <div class="col-sm-10">
+            <label for="garantia" class="form-label">Garantia</label>
+            <select name="garantia" id="garantia" class="form-control" [(ngModel)]="garantia">
+              <option value="true">
+                Com Garantia
+              </option>
+              <option value="false">
+                Sem Garantia
+              </option>
+            </select>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-10">
+              <button type="submit" class="btn btn-dark" >Cadastrar Servico</button>
+            </div>
+          </div>
+    </form>
+</div>

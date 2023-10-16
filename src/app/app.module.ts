@@ -11,6 +11,11 @@ import { AddEditServicosComponent } from './componentes/add-edit-servicos/add-ed
 import { ServicosApiService } from './servicos-api.service';
 import { CabecalhoComponent } from './componentes/cabecalho/cabecalho.component';
 import { RodapeComponent } from './componentes/rodape/rodape.component';
+import { ClientesComponent } from './componentes/clientes/clientes.component';
+import { AddEditClientesComponent } from './componentes/add-edit-clientes/add-edit-clientes.component';
+import { EditarServicosComponent } from './componentes/editar-servicos/editar-servicos.component';
+import { EditClientesComponent } from './componentes/edit-clientes/edit-clientes.component';
+import { AddEquipamentoComponent } from './componentes/add-equipamento/add-equipamento.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +24,12 @@ import { RodapeComponent } from './componentes/rodape/rodape.component';
     ShowServicosComponent,
     AddEditServicosComponent,
     CabecalhoComponent,
-    RodapeComponent
+    RodapeComponent,
+    ClientesComponent,
+    AddEditClientesComponent,
+    EditarServicosComponent,
+    EditClientesComponent,
+    AddEquipamentoComponent
   ],
   imports: [
     BrowserModule,
