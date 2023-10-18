@@ -9,12 +9,6 @@ export class ServicosApiService {
   
 readonly API="https://localhost:7075";
 
-readonly servico="/servico";
-
-readonly cliente="/cliente";
-
-readonly equipamento="/equipamento";
-
   constructor(private http:HttpClient) { }
   //SERVICOS//
   getServicosList():Observable<any[]>{
@@ -27,19 +21,18 @@ readonly equipamento="/equipamento";
   getServicoPorClienteId(id:number):Observable<any[]>{
     return this.http.get<any>(this.API+`/cliente/servicos/${id}`)
   }
-  updateServico(id:number,data:any){
-    return this.http.put<any>(this.API+`/servico/${id}`,id,data)
+  updateServico(id:number|string,data:any){
+    return this.http.put(this.API + `/Servico/${id}`, data)
   }
   deleteServico(id:number){
-    return this.http.delete<any>(this.API+`/servico/${id}`)
+    return this.http.delete(this.API+`/Servico/${id}`)
   }
-
   //Equipamentos//
   getEquipamentoPorIdServicos(id:number):Observable<any[]>{
     return this.http.get<any>(this.API+`/equipamento/servicos/${id}`)
   };
 
-  postEquipamento(data:any){
+  postEquipamento(data:any):Observable<any>{
     return this.http.post(this.API+'/equipamento',data)
   }
 
@@ -50,5 +43,11 @@ readonly equipamento="/equipamento";
   postCliente(cliente:any){
     return this.http.post<any>(this.API+'/cliente',cliente);
 
+  }
+
+  //Status//
+
+  getStatus():Observable<any[]>{
+    return this.http.get<any[]>(this.API+'/Status');
   }
 }

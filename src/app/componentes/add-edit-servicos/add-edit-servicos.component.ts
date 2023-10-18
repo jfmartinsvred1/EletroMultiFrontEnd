@@ -11,20 +11,25 @@ export class AddEditServicosComponent implements OnInit {
 
   clienteList$!:Observable<any[]>;
   servicoList$!:Observable<any[]>;
+  statusList$!:Observable<any[]>;
 
   constructor(private service:ServicosApiService){}
 
-  @Input()cliente:any;
+  @Input()servico:any;
   clienteId!:number;
+  statusId!:number;
 
   ngOnInit(): void {
     this.clienteList$=this.service.getClientes();
-    this.clienteId=this.cliente.clienteId;
+    this.statusList$=this.service.getStatus();
+    this.clienteId=this.servico.clienteId;
+    this.statusId=this.servico.statusId;
   }
 
   addServico(){
     var servico={
-      clienteId:this.clienteId
+      clienteId:this.clienteId,
+      statusId:this.statusId
     }
     this.service.postServico(servico).subscribe();
   }

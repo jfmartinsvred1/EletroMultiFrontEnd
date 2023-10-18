@@ -4,7 +4,7 @@
 </div>
   <table class="table table-hover table-dark">
     <thead class="letras">
-        <th>NUMERO DE OS</th>
+        <th>NUMERO DE SERVIÇO</th>
         <th>EQUIPAMENTOS</th>
         <th>STATUS</th>
         <th>CLIENTE</th>
@@ -14,19 +14,19 @@
         <tr *ngFor="let item of servicoList$|async">
             <td>{{item.servicoId}}</td>
             <td>
-                <button type="button" class="btn btn-primary me-2 mb-1" data-bs-toggle="modal" data-bs-target="#exampleModal"  (click)="retornarEquipamentos(item.servicoId)">
+                <button type="button" class="btn btn-primary me-2 mb-1" data-bs-toggle="modal" data-bs-target="#exampleModal"  (click)="retornarEquipamentos(item.servicoId)" (click)="salvarId(item.servicoId)">
                   Exibir
                 </button>
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Equipamentos da OS {{item.servicoId}}</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Equipamentos</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body text-dark" *ngFor="let eqp of equipamentoList$|async">
                             <ul>
-                              <li>N EQUIPAMENTO: {{eqp.equipamentoId}}</li>
+                              <li>NÚMERO DE OS: {{eqp.equipamentoId}}</li>
                               <ul>
                                   <li>NOME: {{eqp.nome}}</li>
                                   <li>MODELO: {{eqp.modelo}}</li>
@@ -38,10 +38,6 @@
                       </div>
                       <div class="addEqp text-dark espaco">
                         <form class="bg-light espaco">
-                          <div class="col-sm-10">
-                            <label for="servicoId" class="form-label">NumeroOs</label>
-                            <input type="text" id="servicoId" name="servicoId" class="form-control" [(ngModel)]="servicoId" [placeholder]="item.servicoId">
-                          </div>
                           <div class="col-sm-10">
                             <label for="equipamentoNome" class="form-label">Nome Do Equipamento</label>
                             <input type="text" id="equipamentoNome" name="equipamentoNome" class="form-control" [(ngModel)]="nome">
@@ -81,7 +77,7 @@
                   </div>
               </div>
             </td>
-            <td>{{status(item.status)}}</td>
+            <td>{{status(item.statusId)}}</td>
             <td>{{item.cliente.nome}}</td>
             <td>
               <button class="btn btn-outline-primary me-2 mb-1" routerLink="/servicos/editar">

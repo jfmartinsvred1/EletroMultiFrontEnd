@@ -10,6 +10,7 @@ import { ServicosApiService } from 'src/app/servicos-api.service';
 export class ShowServicosComponent implements OnInit{
 
   servicoList$!:Observable<any[]>;
+  statusList$!:Observable<any[]>;
   equipamentoList$!:Observable<any[]>;
   idUpdate!:number;
   constructor(private service:ServicosApiService){}
@@ -24,6 +25,7 @@ export class ShowServicosComponent implements OnInit{
 
   ngOnInit(): void {
     this.servicoList$=this.service.getServicosList();
+    this.statusList$=this.service.getStatus();
     this.servicoId=this.equipamento.servicoId;
     this.nome=this.equipamento.nome;
     this.modelo=this.equipamento.modelo;
@@ -75,12 +77,13 @@ export class ShowServicosComponent implements OnInit{
   retornarEquipamentos(id:number){
     this.equipamentoList$=this.service.getEquipamentoPorIdServicos(id);
   }
+  
   excluirServico(id:number){
     this.service.deleteServico(id).subscribe();
   }
   addEquipamentos(){
     var equipamento={
-      servicoId:this.servicoId,
+      servicoId:this.idUpdate,
       nome:this.nome,
       modelo:this.modelo,
       marca:this.marca,
@@ -88,5 +91,8 @@ export class ShowServicosComponent implements OnInit{
       garantia:this.garantia
     }
     this.service.postEquipamento(equipamento).subscribe();
+  }
+  salvarId(id:number){
+    this.idUpdate=id;
   }
 }

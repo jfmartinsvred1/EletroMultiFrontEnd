@@ -1,17 +1,13 @@
-<div class="espaco">
-    <form class="bg-light">
+<div class="mx-auto pt-5 " style="width: 400px;">
+    <form class="bg-light p-3">
         <div class="form-group row inputsEspaco">
           <div class="col-sm-10">
-            <label for="clienteNome" class="form-label">Cliente Do Serviço</label>
-            <select name="clienteNome" id="clienteNome" class="form-control" [(ngModel)]="clienteId">
-                <option *ngFor="let item of clienteList$|async" [value]="item.clienteId">
-                    {{item.nome}}
-                </option>
-            </select>
+            <label for="numeroOs" class="form-label">ID Do Serviço</label>
+            <input type="text" class="form-control"  placeholder="NumeroOs" [(ngModel)]="servicoId" name="numeroOs">
           </div>
           <div class="col-sm-10">
-            <label for="numeroOs" class="form-label">Cliente Do Serviço</label>
-            <input type="text" class="form-control"  placeholder="NumeroOs" [(ngModel)]="servicoId" name="numeroOs">
+            <label for="status" class="form-label">Status</label>
+            <input type="text" class="form-control"  placeholder="Status" [(ngModel)]="status" name="Status">
           </div>
         </div>
         <div class="form-group row">

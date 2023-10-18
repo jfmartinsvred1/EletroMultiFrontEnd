@@ -12,21 +12,20 @@ export class EditarServicosComponent {
 
   constructor(private service:ServicosApiService){}
 
-  @Input()cliente:any;
-  clienteId!:number;
-  servicoId!:number;
+  @Input()servico:any;
+  status!:string
+  servicoId!:number
 
   ngOnInit(): void {
     this.clienteList$=this.service.getClientes();
-    this.clienteId=this.cliente.clienteId;
+    this.status=this.servico.status;
+    this.servicoId=this.servico.servicoId
   }
   updateServico(){
-    var servico={
-      clienteId:this.clienteId,
-      servicoId:this.servicoId
+    var service={
+      status:this.status
     }
-    var id:number=this.clienteId;
-    this.service.updateServico(servico.servicoId,servico.clienteId).subscribe();
+    this.service.updateServico(this.servicoId,service).subscribe();
   }
   
 }
