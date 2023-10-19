@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, skip } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,11 @@ readonly API="https://localhost:7075";
 
   constructor(private http:HttpClient) { }
   //SERVICOS//
-  getServicosList():Observable<any[]>{
-    return this.http.get<any>(this.API+'/servico')
+  getServicosList(itens:number):Observable<any[]>{
+
+    const qntPPag=10;
+
+    return this.http.get<any>(`${this.API}/servico?skip=${itens}&take=${qntPPag}`)
   };
 
   postServico(data:any){
@@ -49,5 +52,10 @@ readonly API="https://localhost:7075";
 
   getStatus():Observable<any[]>{
     return this.http.get<any[]>(this.API+'/Status');
+  }
+
+  //Documento//
+  getDocumento(){
+    return this.http.get<any[]>(this.API+'/documento')
   }
 }

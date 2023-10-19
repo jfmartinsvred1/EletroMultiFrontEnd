@@ -13,6 +13,7 @@ export class ShowServicosComponent implements OnInit{
   statusList$!:Observable<any[]>;
   equipamentoList$!:Observable<any[]>;
   idUpdate!:number;
+  pagAtual:number=0;
   constructor(private service:ServicosApiService){}
 
   @Input()equipamento:any;
@@ -24,7 +25,7 @@ export class ShowServicosComponent implements OnInit{
   garantia:boolean=true;
 
   ngOnInit(): void {
-    this.servicoList$=this.service.getServicosList();
+    this.servicoList$=this.service.getServicosList(this.pagAtual);
     this.statusList$=this.service.getStatus();
     this.servicoId=this.equipamento.servicoId;
     this.nome=this.equipamento.nome;
@@ -94,5 +95,16 @@ export class ShowServicosComponent implements OnInit{
   }
   salvarId(id:number){
     this.idUpdate=id;
+  }
+
+  avancarPag(){
+    this.pagAtual= this.pagAtual+10
+    this.servicoList$=this.service.getServicosList(this.pagAtual);
+  }
+  voltarrPag(){
+    if(this.pagAtual>0){
+      this.pagAtual= this.pagAtual-10
+      this.servicoList$=this.service.getServicosList(this.pagAtual);
+    }
   }
 }

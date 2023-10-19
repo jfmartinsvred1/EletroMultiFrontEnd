@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Documento } from 'src/app/Models/Documento';
 import { ServicosApiService } from 'src/app/servicos-api.service';
 
 @Component({
@@ -9,6 +10,7 @@ import { ServicosApiService } from 'src/app/servicos-api.service';
 })
 export class ClientesComponent implements OnInit {
 
+
   clientesList$!:Observable<any[]>;
   servicosList$!:Observable<any[]>;
 
@@ -16,6 +18,5 @@ export class ClientesComponent implements OnInit {
   ngOnInit(): void {
     this.clientesList$=this.service.getClientes();
   }
-
 
 }

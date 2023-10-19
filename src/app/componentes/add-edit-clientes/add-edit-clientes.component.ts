@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ServicosApiService } from 'src/app/servicos-api.service';
 
@@ -10,31 +12,41 @@ import { ServicosApiService } from 'src/app/servicos-api.service';
 export class AddEditClientesComponent implements OnInit{
 
   clientesList$!:Observable<any[]>;
+  formulario!:FormGroup
 
-  constructor(private service:ServicosApiService){}
+  constructor(
+    private service:ServicosApiService,
+    private formBuilder:FormBuilder,
+    private router:Router
+    ){}
 
-  @Input()cliente:any;
-  nome:string="";
-  cpf:string="";
-  numero:string="";
-  email:string="";
 
   ngOnInit(): void {
-    this.nome=this.cliente.nome;
-    this.cpf=this.cliente.cpf;
-    this.numero=this.cliente.numero;
-    this.email=this.cliente.email;
     this.clientesList$=this.service.getClientes();
+    this.formulario=this.formBuilder.group({
+      nome:['',[Validators.required]],
+      documentoId:[''],
+      numDocumento:['',Validators.compose([
+        Validators.required,
+        Validators.minLength(11)
+      ])],
+      numero:['',[Validators.required]],
+      email:['',Validators.compose(
+        [
+          Validators.required,
+          Validators.email
+        ]
+        )]
+    })
   }
   
   addCliente(){
-    var cliente={
-      nome:this.nome,
-      cpf:this.cpf,
-      numero:this.numero,
-      email:this.email
-    };
-    this.service.postCliente(cliente).subscribe();
+    console.log(this.formulario.get('cpf')?.errors)
+    if(this.formulario.valid){
+      this.service.postCliente(this.formulario.value).subscribe(()=>{
+        this.router.navigate(['/clientes'])
+      });
+    }
   }
 
 }

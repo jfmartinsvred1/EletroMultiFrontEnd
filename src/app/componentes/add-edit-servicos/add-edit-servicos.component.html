@@ -1,25 +1,31 @@
 <div class="mx-auto pt-5 " style="width: 400px;">
-    <form class="bg-light p-3">
+    <form class="bg-light p-3" [formGroup]="formulario">
         <div class="form-group row inputsEspaco">
           <div class="col-sm-10 pb-3">
-            <label for="clienteNome" class="form-label">Cliente Do Serviço</label>
-            <select name="clienteNome" id="clienteNome" class="form-control" [(ngModel)]="clienteId">
+            <label for="clienteId" class="form-label">Cliente Do Serviço</label>
+            <select formControlName="clienteId" id="clienteId" class="form-control" >
                 <option *ngFor="let item of clienteList$|async" [value]="item.clienteId">
                     {{item.nome}}
                 </option>
             </select>
+            <div class="pt-1 text-danger" *ngIf="formulario.get('clienteId')?.errors && formulario.get('clienteId')?.touched">
+              Definir o cliente é obrigatório!
+            </div>
             <div class="col-sm-10 pb-3">
-              <label for="statusTipo" class="form-label">Status Do Serviço</label>
-            <select name="statusTipo" id="statusTipo" class="form-control" [(ngModel)]="statusId">
+              <label for="statusId" class="form-label pt-1">Status Do Serviço</label>
+            <select formControlName="statusId" id="statusId" class="form-control" >
               <option *ngFor="let status of statusList$|async" [value]="status.statusId">
                 {{status.statusTipo}}
               </option>
             </select>
+            <div class="pt-1 text-danger" *ngIf="formulario.get('statusId')?.errors && formulario.get('statusId')?.touched">
+              Definir o status é obrigatório!
+            </div>
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-10">
-              <button type="submit" class="btn btn-dark" (click)="addServico()">Cadastrar Servico</button>
+              <button type="submit" class="btn btn-dark" (click)="addServico()" [disabled]="!formulario.valid" >Cadastrar Servico</button>
             </div>
           </div>
         </div>

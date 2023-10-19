@@ -7,6 +7,7 @@ import { AddEditServicosComponent } from './componentes/add-edit-servicos/add-ed
 import { EditarServicosComponent } from './componentes/editar-servicos/editar-servicos.component';
 import { EditClientesComponent } from './componentes/edit-clientes/edit-clientes.component';
 import { AddEquipamentoComponent } from './componentes/add-equipamento/add-equipamento.component';
+import { EstatisticasComponent } from './componentes/estatisticas/estatisticas.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path:'servicos',
     component:ShowServicosComponent
+  },
+  {
+    path:'estatisticas',
+    component:EstatisticasComponent
   },
   {
     path:'servicos/cadastrar',

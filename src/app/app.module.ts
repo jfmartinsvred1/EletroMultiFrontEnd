@@ -16,6 +16,7 @@ import { AddEditClientesComponent } from './componentes/add-edit-clientes/add-ed
 import { EditarServicosComponent } from './componentes/editar-servicos/editar-servicos.component';
 import { EditClientesComponent } from './componentes/edit-clientes/edit-clientes.component';
 import { AddEquipamentoComponent } from './componentes/add-equipamento/add-equipamento.component';
+import { EstatisticasComponent } from './componentes/estatisticas/estatisticas.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AddEquipamentoComponent } from './componentes/add-equipamento/add-equip
     AddEditClientesComponent,
     EditarServicosComponent,
     EditClientesComponent,
-    AddEquipamentoComponent
+    AddEquipamentoComponent,
+    EstatisticasComponent
   ],
   imports: [
     BrowserModule,
