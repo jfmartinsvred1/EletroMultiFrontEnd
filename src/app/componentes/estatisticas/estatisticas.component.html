@@ -1,1 +1,33 @@
-<p>estatisticas works!</p>
+<div class="p-5 ">
+    <div class="bg-secondary text-dark p-4">
+        <div class="bg-dark justify-content-around d-flex text-light p-3">
+            <ul>
+                <li>Peritagem</li>
+                <li>{{peritagem}}</li>
+                <ol *ngFor="let item of servicosList$|async">
+                    <ul *ngIf="item.statusId==1" class="p-3">
+                       <li>
+                            Equipamento : {{item.servicoId}}
+                            <ul>
+                                <li>Cliente: {{item.cliente.nome}}</li>
+                                <li>Data De Entrada: {{conversorData(item.dataEntrada)}}</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </ol>
+            </ul>
+            <ul>
+                <li>Para Aprovação</li>
+                <ol *ngFor="let item of servicosList$|async">
+                    <li *ngIf="item.statusId==2">{{item.dataEntrada}}</li>
+                </ol>
+            </ul>
+            <ul>
+                <li>Para Execução</li>
+                <ol *ngFor="let item of servicosList$|async">
+                    <li *ngIf="item.statusId==3">{{item.dataEntrada}}</li>
+                </ol>
+            </ul>
+        </div>
+    </div>
+</div>

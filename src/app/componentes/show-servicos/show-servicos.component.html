@@ -5,6 +5,22 @@
 <div class="d-flex flex-row-reverse p-3 ">
   <button class="btn btn-primary m-2" (click)="avancarPag()">Avançar</button>
   <button class="btn btn-primary m-2" (click)="voltarrPag()">Voltar</button>
+  <div class="buscar-pensamentos bg-white">
+    <input type="search"
+    class="filtro"
+    placeholder="Buscar Serviços"
+    autofocus
+    [(ngModel)]="filtro"
+    >
+    <div class="m-2 flex-grow-1">
+      <button type="button" class="btn bg-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+        </svg>
+        <span class="visually-hidden">Button</span>
+      </button>
+    </div>
+  </div>
 </div>
   <table class="table table-hover table-dark">
     <thead class="letras">
@@ -41,26 +57,26 @@
                             </ul>
                       </div>
                       <div class="addEqp text-dark espaco">
-                        <form class="bg-light espaco">
+                        <form class="bg-light espaco" [formGroup]="formulario">
                           <div class="col-sm-10">
                             <label for="equipamentoNome" class="form-label">Nome Do Equipamento</label>
-                            <input type="text" id="equipamentoNome" name="equipamentoNome" class="form-control" [(ngModel)]="nome">
+                            <input type="text" id="equipamentoNome" name="equipamentoNome" class="form-control" formControlName="nome">
                           </div>
                           <div class="col-sm-10">
                             <label for="modeloNome" class="form-label">Modelo</label>
-                            <input type="text" id="modeloNome" name="modeloNome" class="form-control" [(ngModel)]="modelo">
+                            <input type="text" id="modeloNome" name="modeloNome" class="form-control" formControlName="modelo">
                           </div>
                           <div class="col-sm-10">
                             <label for="marcaNome" class="form-label">Marca</label>
-                            <input type="text" id="marcaNome" name="marcaNome" class="form-control" [(ngModel)]="marca">
+                            <input type="text" id="marcaNome" name="marcaNome" class="form-control" formControlName="marca">
                           </div>
                           <div class="col-sm-10">
                             <label for="numeroDeSerie" class="form-label">Número De Série</label>
-                            <input type="text" id="numeroDeSerie" name="numeroDeSerie" class="form-control" [(ngModel)]="numSerie">
+                            <input type="text" id="numeroDeSerie" name="numeroDeSerie" class="form-control" formControlName="numSerie">
                           </div>
                           <div class="col-sm-10">
                             <label for="garantia" class="form-label">Garantia</label>
-                            <select name="garantia" id="garantia" class="form-control" [(ngModel)]="garantia">
+                            <select name="garantia" id="garantia" class="form-control" formControlName="garantia">
                               <option value="true">
                                 Com Garantia
                               </option>

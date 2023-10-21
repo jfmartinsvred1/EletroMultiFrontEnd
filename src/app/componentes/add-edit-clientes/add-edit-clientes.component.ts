@@ -41,7 +41,6 @@ export class AddEditClientesComponent implements OnInit{
   }
   
   addCliente(){
-    console.log(this.formulario.get('cpf')?.errors)
     if(this.formulario.valid){
       this.service.postCliente(this.formulario.value).subscribe(()=>{
         this.router.navigate(['/clientes'])

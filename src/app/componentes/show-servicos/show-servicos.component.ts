@@ -1,6 +1,8 @@
 import { Observable } from 'rxjs';
 import { Component, Input, OnInit } from '@angular/core';
 import { ServicosApiService } from 'src/app/servicos-api.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-show-servicos',
@@ -14,25 +16,29 @@ export class ShowServicosComponent implements OnInit{
   equipamentoList$!:Observable<any[]>;
   idUpdate!:number;
   pagAtual:number=0;
-  constructor(private service:ServicosApiService){}
+  filtro:string='';
+  formulario!:FormGroup;
+  constructor(
+    private service:ServicosApiService,
+    private builder:FormBuilder,
+    private router:Router
+    
+    ){}
 
-  @Input()equipamento:any;
-  servicoId!:number;
-  nome:string=" ";
-  modelo:string=" ";
-  marca:string=" ";
-  numSerie:string=" ";
-  garantia:boolean=true;
 
   ngOnInit(): void {
-    this.servicoList$=this.service.getServicosList(this.pagAtual);
+    this.servicoList$=this.service.getServicosListComPag(this.pagAtual);
     this.statusList$=this.service.getStatus();
-    this.servicoId=this.equipamento.servicoId;
-    this.nome=this.equipamento.nome;
-    this.modelo=this.equipamento.modelo;
-    this.marca=this.equipamento.marca;
-    this.numSerie=this.equipamento.numSerie;
-    this.garantia=this.equipamento.garantia;
+    this.formulario=this.builder.group({
+      servicoId:[this.idUpdate,Validators.required],
+      nome:['',Validators.compose([Validators.required])],
+      modelo:['',Validators.compose([Validators.required])],
+      marca:['',Validators.compose([Validators.required])],
+      numSerie:['',Validators.compose([Validators.required])],
+      garantia:[true,Validators.compose([Validators.required])],
+
+      
+    })
   }
   status(status:number):string{
     let statusS:string
@@ -83,15 +89,12 @@ export class ShowServicosComponent implements OnInit{
     this.service.deleteServico(id).subscribe();
   }
   addEquipamentos(){
-    var equipamento={
-      servicoId:this.idUpdate,
-      nome:this.nome,
-      modelo:this.modelo,
-      marca:this.marca,
-      numSerie:this.numSerie,
-      garantia:this.garantia
+   
+    if(this.formulario.valid){
+      this.service.postEquipamento(this.formulario.value).subscribe(p=>{
+        this.router.navigate(['/servicos'])})
     }
-    this.service.postEquipamento(equipamento).subscribe();
+  ;
   }
   salvarId(id:number){
     this.idUpdate=id;
@@ -99,12 +102,12 @@ export class ShowServicosComponent implements OnInit{
 
   avancarPag(){
     this.pagAtual= this.pagAtual+10
-    this.servicoList$=this.service.getServicosList(this.pagAtual);
+    this.servicoList$=this.service.getServicosListComPag(this.pagAtual);
   }
   voltarrPag(){
     if(this.pagAtual>0){
       this.pagAtual= this.pagAtual-10
-      this.servicoList$=this.service.getServicosList(this.pagAtual);
+      this.servicoList$=this.service.getServicosListComPag(this.pagAtual);
     }
   }
 }

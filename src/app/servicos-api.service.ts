@@ -11,7 +11,12 @@ readonly API="https://localhost:7075";
 
   constructor(private http:HttpClient) { }
   //SERVICOS//
-  getServicosList(itens:number):Observable<any[]>{
+
+  getServicosList():Observable<any[]>{
+    return this.http.get<any>(this.API+'/Servico');
+  }
+
+  getServicosListComPag(itens:number):Observable<any[]>{
 
     const qntPPag=10;
 
@@ -57,5 +62,10 @@ readonly API="https://localhost:7075";
   //Documento//
   getDocumento(){
     return this.http.get<any[]>(this.API+'/documento')
+  }
+
+  //Contador//
+  getPeritagem(){
+    return this.http.get<any>(this.API+'/Contador/Peritagem')
   }
 }
